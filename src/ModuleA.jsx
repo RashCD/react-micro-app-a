@@ -1,19 +1,25 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { useState, Fragment } from "react";
+import React from "react";
+import { GlobalStateContextLocal } from "./GlobalStateProvider";
+import { GlobalStateContext } from "host_app/GlobalStateProvider";
 
 function ModuleA() {
-  const [count, setCount] = useState(0);
+  const context = React.useContext(
+    GlobalStateContext._currentValue
+      ? GlobalStateContext
+      : GlobalStateContextLocal
+  );
 
   const handleIncrement = () => {
-    setCount((prev) => prev + 1);
+    context?.toggleIncrement();
   };
 
   const handleDecrement = () => {
-    setCount((prev) => prev - 1);
+    context?.toggleDecrement();
   };
 
   return (
-    <Fragment>
+    <React.Fragment>
       <Grid container spacing={3} mt={3}>
         <Grid item xs={12}>
           <Paper
@@ -33,7 +39,7 @@ function ModuleA() {
               noWrap
               sx={{ flexGrow: 1, p: 2 }}
             >
-              {count}
+              {context?.globalCount ?? 0}
             </Typography>
             <Box justifyContent={"space-between"}>
               <Button
@@ -43,7 +49,7 @@ function ModuleA() {
               >
                 -
               </Button>
-              Test
+              useContext
               <Button
                 variant="contained"
                 sx={{ mx: 3 }}
@@ -81,7 +87,7 @@ function ModuleA() {
           </Paper>
         </Grid>
       </Grid>
-    </Fragment>
+    </React.Fragment>
   );
 }
 
