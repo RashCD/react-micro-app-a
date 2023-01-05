@@ -66,14 +66,17 @@ function ModuleA() {
             <Typography component="h4" variant="h6">
               Github:
             </Typography>
-            <a href="https://www.google.com" target="_blank">
-              www.google.com
+            <a
+              href={"https://github.com/RashCD/react-micro-app-a"}
+              target="_blank"
+            >
+              {"https://github.com/RashCD/react-micro-app-a"}
             </a>
             <Typography component="h4" variant="h6">
               Website Link:
             </Typography>
-            <a href={window.location.href} target="_blank">
-              {window.location.href}
+            <a href={"https://react-micro-app-a.vercel.app/"} target="_blank">
+              {"https://react-micro-app-a.vercel.app/"}
             </a>
           </Paper>
         </Grid>
