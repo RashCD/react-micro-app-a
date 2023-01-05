@@ -1,15 +1,25 @@
-import React, { Suspense } from "react";
+import React, { useState } from "react";
 
-const RemoteGlobalStateProvider = ({ children }) => {
-  const GlobalStateProvider = React.lazy(() =>
-    import("host_app/GlobalStateProvider")
-  );
+export const GlobalStateContextLocal = React.createContext();
+
+const GlobalStateProvider = ({ children }) => {
+  const [globalCount, setGlobalCount] = useState(0);
+
+  const toggleIncrement = () => {
+    setGlobalCount((prev) => prev + 1);
+  };
+
+  const toggleDecrement = () => {
+    setGlobalCount((prev) => prev - 1);
+  };
+
+  const value = { globalCount, toggleIncrement, toggleDecrement };
 
   return (
-    <Suspense fallback={"loading ...."}>
-      <GlobalStateProvider>{children}</GlobalStateProvider>
-    </Suspense>
+    <GlobalStateContextLocal.Provider value={value}>
+      {children}
+    </GlobalStateContextLocal.Provider>
   );
 };
 
-export default RemoteGlobalStateProvider;
+export default GlobalStateProvider;
